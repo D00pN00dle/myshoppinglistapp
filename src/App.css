@@ -1,0 +1,103 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/*-------------------*/
+
+.break-words {
+  overflow-wrap: break-word; /* Allows breaking long words */
+  word-wrap: break-word; /* For older browsers */
+  white-space: normal; 
+  word-break: break-all
+}
+
+.line-height-2 {
+  line-height: 2;
+}
+
+.line-height-1 {
+  line-height: 1;
+}
+
+.h-auto {
+  height: auto;
+}
+.max-h-200px {
+  max-height: 200px;
+}
+.min-h-100px {
+  min-height: 100px;
+}
+.w-15 {
+  width: 15% !important;
+}
+
+.max-w-50px {
+  max-width: 50px
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.inner-shadow {
+  box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.2); /* Adjust values as needed */
+}
+
+.hide-scrollbar {
+  overflow: auto; /* Allow scrolling */
+  scrollbar-width: none; /* For Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* Hide the spinner buttons in Chrome, Safari, and Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinner buttons in Firefox */
+input[type="number"] {
+    -moz-appearance: textfield; /* This will remove the spinner in Firefox */
+}
+
+/*-------------------*/
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
