@@ -33,6 +33,9 @@
 .min-h-100px {
   min-height: 100px;
 }
+.min-h-530px {
+  min-height: 530px;
+}
 .w-15 {
   width: 15% !important;
 }
