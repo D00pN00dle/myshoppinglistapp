@@ -237,10 +237,10 @@ class MyList extends React.Component {
 
   render() {
     return (
-      <div className='container-fluid ps-0 pe-0 vh-100 d-flex flex-column min-h-530px'>
+      <div className='container-fluid ps-0 pe-0 vh-100 d-flex flex-column'>
         {this.state.showModal && <MenuModal buttonId={this.state.buttonId} closeModal={this.closeModal} loadList={this.loadList} 
         index={this.state.selectedIndex} updatePrice={this.updatePrice} listActive={this.state.listActive} />}
-        <div className='p-3 container-fluid d-flex flex-column flex-fill overflow-hidden bg-dark min-h-530px'>
+        <div className='p-3 container-fluid d-flex flex-column flex-fill overflow-hidden bg-dark min-h-500px'>
           <h1 className="mb-3 text-white">My Shopping List</h1>
           <MyInput id="itemSubmit" handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state.input} />
           {this.state.inputError && <span className='text-danger pb-3'>Alphanumeric characters only!</span>}
