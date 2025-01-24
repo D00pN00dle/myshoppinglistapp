@@ -22,7 +22,8 @@ class MyList extends React.Component {
       createdDate: new Date(),
       formattedDate: new Date().toLocaleDateString('en-us', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }),
       listActive: false, 
-      id: null
+      id: null,
+      inputError: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,6 +51,20 @@ class MyList extends React.Component {
     this.setState({
       input: event.target.value
     });
+    const pattern = /^[A-Za-z0-9 ]+$/;
+    if (!pattern.test(event.target.value) || event.target.value === ' ') {
+      this.setState((state) => {
+        return { 
+          inputError: true 
+        };
+      });
+    } else {
+      this.setState((state) => {
+        return {
+          inputError: false
+        };
+      });
+    }
   }
 
   handleSubmit(event) {
@@ -227,7 +242,8 @@ class MyList extends React.Component {
         index={this.state.selectedIndex} updatePrice={this.updatePrice} listActive={this.state.listActive} />}
         <div className='p-3 container-fluid d-flex flex-column flex-fill overflow-hidden bg-dark min-h-530px'>
           <h1 className="mb-3 text-white">My Shopping List</h1>
-          <MyInput handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state.input} />
+          <MyInput id="itemSubmit" handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state.input} />
+          {this.state.inputError && <span className='text-danger pb-3'>Alphanumeric characters only!</span>}
           <ul className="list-unstyled d-flex flex-column bg-dark flex-fill overflow-y-auto hide-scrollbar hide-scrollbar::-webkit-scrollbar p-1">
             {this.state.items.map((item, index) => (
               <ListItem key={index} 
@@ -289,24 +305,30 @@ class UpdatePriceModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: ''
+      input: '',
+      inputError: false
     };
   }
   handleInputChange = (event) => {
+    const value = event.target.value;
+    const pattern = /^[0-9.]+$/;
+  
     this.setState({
-      input: parseFloat(event.target.value)
+      input: value, // Set the raw input value
+      inputError: !pattern.test(value) // Validate the input
     });
   }
 
   render() {
     const { index, updatePrice, closeModal } = this.props;
-    const updateBtnDisabled = this.state.input === '' || isNaN(this.state.input) ? true : false;
+    const updateBtnDisabled = this.state.inputError === true ? true : false;
     return (
-      <div>
-        <input type="number" className="form-control" value={this.state.input} placeholder='Enter a price...' onChange={this.handleInputChange} />
+      <div className='d-flex flex-column'>
+        <input type="text" className="form-control" value={this.state.input} placeholder='Enter a price...' onChange={this.handleInputChange} />
+        {this.state.inputError && <span className='text-danger pt-3'>Numbers only!</span>}
         <button className='btn btn-primary mt-3' 
         onClick={() => {
-          updatePrice(index, this.state.input);
+          updatePrice(index, parseFloat(this.state.input));
           closeModal();
           }}
           disabled={updateBtnDisabled}>
@@ -417,7 +439,7 @@ class MyInput extends React.Component {
       <div>
         <form onSubmit={this.props.handleSubmit} className='d-flex flex-column mb-3'>
           <div className='input-group'>
-            <input type="text" className='form-control' onChange={this.props.handleChange} value={this.props.input} maxLength={20} placeholder='Add an item (Max 20 Character)'/>
+            <input type="text" className='form-control' onChange={this.props.handleChange} value={this.props.input} maxLength={20} placeholder='Add items (Max 20 Character)'/>
             <button className="btn btn-primary w-auto" type="submit" onClick={this.props.handleSubmit}>Submit</button>
           </div>
           {this.props.input.length > 19 && <p className='text-danger mt-1'>Character limit reached!</p>}
