@@ -27,21 +27,29 @@
 .h-auto {
   height: auto;
 }
+
 .max-h-200px {
   max-height: 200px;
 }
+
 .min-h-100px {
   min-height: 100px;
 }
+
 .min-h-500px {
   min-height: 500px;
 }
+
 .w-15 {
   width: 15% !important;
 }
 
 .max-w-50px {
   max-width: 50px
+}
+
+.max-w-960px {
+  max-width: 960px;
 }
 
 .overflow-y-auto {

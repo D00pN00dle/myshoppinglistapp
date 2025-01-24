@@ -236,13 +236,14 @@ class MyList extends React.Component {
   }
 
   render() {
+    const submitBtnDisabled = this.state.inputError;
     return (
-      <div className='container-fluid ps-0 pe-0 vh-100 d-flex flex-column min-h-500px'>
+      <div className='container-fluid ps-0 pe-0 vh-100 d-flex flex-column min-h-500px max-w-960px'>
         {this.state.showModal && <MenuModal buttonId={this.state.buttonId} closeModal={this.closeModal} loadList={this.loadList} 
         index={this.state.selectedIndex} updatePrice={this.updatePrice} listActive={this.state.listActive} />}
         <div className='p-3 container-fluid d-flex flex-column flex-fill overflow-hidden bg-dark'>
           <h1 className="mb-3 text-white">My Shopping List</h1>
-          <MyInput id="itemSubmit" handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state.input} />
+          <MyInput id="itemSubmit" handleChange={this.handleChange} handleSubmit={this.handleSubmit} input={this.state.input} submitDisabled={submitBtnDisabled}/>
           {this.state.inputError && <span className='text-danger pb-3'>Alphanumeric characters only!</span>}
           <ul className="list-unstyled d-flex flex-column bg-dark flex-fill overflow-y-auto hide-scrollbar hide-scrollbar::-webkit-scrollbar p-1">
             {this.state.items.map((item, index) => (
@@ -440,7 +441,7 @@ class MyInput extends React.Component {
         <form onSubmit={this.props.handleSubmit} className='d-flex flex-column mb-3'>
           <div className='input-group'>
             <input type="text" className='form-control' onChange={this.props.handleChange} value={this.props.input} maxLength={20} placeholder='Add items (Max 20 Character)'/>
-            <button className="btn btn-primary w-auto" type="submit" onClick={this.props.handleSubmit}>Submit</button>
+            <button className="btn btn-primary w-auto" type="submit" onClick={this.props.handleSubmit} disabled={this.props.submitDisabled}>Submit</button>
           </div>
           {this.props.input.length > 19 && <p className='text-danger mt-1'>Character limit reached!</p>}
         </form>
